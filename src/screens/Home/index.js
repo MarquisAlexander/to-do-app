@@ -13,9 +13,18 @@ import { styles } from "./styles";
 export function Home() {
 	const [items, setItems] = useState([]);
 	const [itemName, setItemName] = useState("");
+	const [loading, setLoading] = useState(false);
 
-	function handleAddItemToList(item) {
-		setItems((prevState) => [...prevState, item]);
+	function handleAddItemToList(title) {
+		const newItems = items;
+		newItems.push({
+			id: Math.floor(Math.random() * 1000),
+			itemName: title,
+			isFinished: false,
+		});
+
+		setItems(newItems);
+		setLoading(!loading);
 	}
 
 	return (
@@ -39,6 +48,7 @@ export function Home() {
 				</View>
 				<FlatList
 					data={items}
+					extraDat={loading}
 					ListEmptyComponent={() => (
 						<View>
 							<Text>Você ainda não tem tarefas cadastradas</Text>
@@ -48,7 +58,7 @@ export function Home() {
 					renderItem={({ item }) => (
 						<View style={styles.cardItem}>
 							<Text>x</Text>
-							<Text style={styles.itemTitle}>{item}</Text>
+							<Text style={styles.itemTitle}>{item.itemName}</Text>
 							<TouchableOpacity>
 								<Text>Trash</Text>
 							</TouchableOpacity>
