@@ -24,6 +24,28 @@ export function Home() {
 		});
 
 		setItems(newItems);
+		setItemName("");
+		setLoading(!loading);
+	}
+
+	function checkTask(task) {
+		const newArray = items.map((item) => {
+			if (item.id === task.id) {
+				return { ...item, isFinished: !item.isFinished };
+			}
+			return item;
+		});
+		setItems(newArray);
+	}
+
+	function removeTask(id) {
+		const array = items;
+		array.splice(
+			items.findIndex((item) => item.id === id),
+			1,
+		);
+		console.log("newArray", array);
+		setItems(array);
 		setLoading(!loading);
 	}
 
@@ -46,6 +68,20 @@ export function Home() {
 						<Text style={styles.buttonText}>+</Text>
 					</TouchableOpacity>
 				</View>
+				<View
+					style={{
+						flexDirection: "row",
+						justifyContent: "space-between",
+						paddingBottom: 20,
+					}}
+				>
+					<Text style={styles.textTotalTasks}>
+						Criadas <Text>{items.length}</Text>
+					</Text>
+					<Text style={styles.textTotalFinishedTasks}>
+						Concluídas <Text>{items.length}</Text>
+					</Text>
+				</View>
 				<FlatList
 					data={items}
 					extraDat={loading}
@@ -56,13 +92,16 @@ export function Home() {
 						</View>
 					)}
 					renderItem={({ item }) => (
-						<View style={styles.cardItem}>
-							<Text>x</Text>
+						<TouchableOpacity
+							style={styles.cardItem}
+							onPress={() => checkTask(item)}
+						>
+							<Text>{item.isFinished ? "ok" : "x"}</Text>
 							<Text style={styles.itemTitle}>{item.itemName}</Text>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={() => removeTask(item.id)}>
 								<Text>Trash</Text>
 							</TouchableOpacity>
-						</View>
+						</TouchableOpacity>
 					)}
 				/>
 			</View>
