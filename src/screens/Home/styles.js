@@ -12,13 +12,14 @@ export const styles = StyleSheet.create({
 		position: "absolute",
 	},
 	content: {
-		padding: 24,
+		flex: 1,
 	},
 	form: {
 		width: "100%",
 		flexDirection: "row",
 		marginTop: 36,
 		marginBottom: 42,
+		paddingHorizontal: 24,
 	},
 	input: {
 		flex: 1,
@@ -48,11 +49,28 @@ export const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		padding: 12,
-        borderRadius: 8,
+		borderRadius: 8,
+		borderWidth: 1,
+		borderStyle: "solid",
+		borderColor: "#262626",
+		alignItems: "center",
+	},
+	finishedCardItem: {
+		width: "100%",
+		backgroundColor: "#262626",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		padding: 12,
+		borderRadius: 8,
+		borderWidth: 1,
+		borderStyle: "solid",
+		borderColor: "#808080",
+		alignItems: "center",
 	},
 	itemTitle: {
 		color: "#F2F2F2",
 		fontSize: 14,
+		maxWidth: "70%",
 	},
 	textTotalTasks: {
 		color: "#1E6F9F",
@@ -63,5 +81,8 @@ export const styles = StyleSheet.create({
 		color: "#8284FA",
 		fontSize: 14,
 		fontWeight: "bold",
+	},
+	line: {
+		height: 10,
 	},
 });

@@ -44,7 +44,6 @@ export function Home() {
 			items.findIndex((item) => item.id === id),
 			1,
 		);
-		console.log("newArray", array);
 		setItems(array);
 		setLoading(!loading);
 	}
@@ -73,6 +72,7 @@ export function Home() {
 						flexDirection: "row",
 						justifyContent: "space-between",
 						paddingBottom: 20,
+						paddingHorizontal: 24,
 					}}
 				>
 					<Text style={styles.textTotalTasks}>
@@ -84,6 +84,9 @@ export function Home() {
 				</View>
 				<FlatList
 					data={items}
+					style={{
+						paddingHorizontal: 24,
+					}}
 					extraDat={loading}
 					ListEmptyComponent={() => (
 						<View>
@@ -91,9 +94,12 @@ export function Home() {
 							<Text>Crie tarefas e organize seus itens a fazer</Text>
 						</View>
 					)}
+					ItemSeparatorComponent={() => <View style={styles.line} />}
 					renderItem={({ item }) => (
 						<TouchableOpacity
-							style={styles.cardItem}
+							style={
+								item.isFinished ? styles.finishedCardItem : styles.cardItem
+							}
 							onPress={() => checkTask(item)}
 						>
 							<Text>{item.isFinished ? "ok" : "x"}</Text>
