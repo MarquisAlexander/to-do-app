@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 import {
 	View,
-	TextInput,
-	TouchableOpacity,
 	Text,
 	FlatList,
+	Image,
 } from "react-native";
 
 import { styles } from "./styles";
+import { EmptyList } from "../../components/EmptyList";
+import { CardItem } from "../../components/CardItem";
+import { Input } from "../../components/Input";
 
 export function Home() {
 	const [items, setItems] = useState([]);
@@ -53,30 +53,20 @@ export function Home() {
 	return (
 		<View style={styles.container}>
 			<View style={styles.headerBackground} />
+			<Image
+				source={{
+					uri: "https://user-images.githubusercontent.com/51330232/198155529-7870ddfd-21cd-4aa1-9aff-432dc85e21ed.png",
+				}}
+				resizeMode="contain"
+				style={styles.logo}
+			/>
 			<View style={styles.content}>
-				<View style={styles.form}>
-					<TextInput
-						style={styles.input}
-						value={itemName}
-						onChangeText={(e) => setItemName(e)}
-						placeholder="Adicione uma nova tarefa"
-						placeholderTextColor="#808080"
-					/>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={() => handleAddItemToList(itemName)}
-					>
-						<Text style={styles.buttonText}>+</Text>
-					</TouchableOpacity>
-				</View>
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "space-between",
-						paddingBottom: 20,
-						paddingHorizontal: 24,
-					}}
-				>
+				<Input
+					value={itemName}
+					onPressAdd={() => handleAddItemToList(itemName)}
+					onChangeText={(e) => setItemName(e)}
+				/>
+				<View style={styles.resumeHeader}>
 					<View style={{ flexDirection: "row" }}>
 						<Text style={styles.textTotalTasks}>Criadas </Text>
 						<View style={styles.wrapperLenght}>
@@ -94,38 +84,16 @@ export function Home() {
 				</View>
 				<FlatList
 					data={items}
-					style={{
-						paddingHorizontal: 24,
-					}}
+					style={styles.flatList}
 					extraDat={loading}
-					ListEmptyComponent={() => (
-						<View>
-							<Text>Você ainda não tem tarefas cadastradas</Text>
-							<Text>Crie tarefas e organize seus itens a fazer</Text>
-						</View>
-					)}
+					ListEmptyComponent={() => <EmptyList />}
 					ItemSeparatorComponent={() => <View style={styles.line} />}
 					renderItem={({ item }) => (
-						<TouchableOpacity
-							style={
-								item.isFinished ? styles.finishedCardItem : styles.cardItem
-							}
-							onPress={() => checkTask(item)}
-						>
-							{item.isFinished ? (
-								<MaterialIcons name="check-circle" color="#5E60CE" size={24} />
-							) : (
-								<MaterialIcons
-									name="radio-button-unchecked"
-									color="#4EA8DE"
-									size={24}
-								/>
-							)}
-							<Text style={styles.itemTitle}>{item.itemName}</Text>
-							<TouchableOpacity onPress={() => removeTask(item.id)}>
-								<Ionicons name="trash-outline" color="#808080" size={18} />
-							</TouchableOpacity>
-						</TouchableOpacity>
+						<CardItem
+							item={item}
+							checkTask={(item) => checkTask(item)}
+							removeTask={(id) => removeTask(id)}
+						/>
 					)}
 				/>
 			</View>
