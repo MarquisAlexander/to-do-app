@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import {
 	View,
@@ -75,12 +77,20 @@ export function Home() {
 						paddingHorizontal: 24,
 					}}
 				>
-					<Text style={styles.textTotalTasks}>
-						Criadas <Text>{items.length}</Text>
-					</Text>
-					<Text style={styles.textTotalFinishedTasks}>
-						Concluídas <Text>{items.length}</Text>
-					</Text>
+					<View style={{ flexDirection: "row" }}>
+						<Text style={styles.textTotalTasks}>Criadas </Text>
+						<View style={styles.wrapperLenght}>
+							<Text style={styles.lenght}>{items.length}</Text>
+						</View>
+					</View>
+					<View style={{ flexDirection: "row" }}>
+						<Text style={styles.textTotalFinishedTasks}>Concluídas </Text>
+						<View style={styles.wrapperLenght}>
+							<Text style={styles.lenght}>
+								{items.filter((item) => item.isFinished).length}
+							</Text>
+						</View>
+					</View>
 				</View>
 				<FlatList
 					data={items}
@@ -102,10 +112,18 @@ export function Home() {
 							}
 							onPress={() => checkTask(item)}
 						>
-							<Text>{item.isFinished ? "ok" : "x"}</Text>
+							{item.isFinished ? (
+								<MaterialIcons name="check-circle" color="#5E60CE" size={24} />
+							) : (
+								<MaterialIcons
+									name="radio-button-unchecked"
+									color="#4EA8DE"
+									size={24}
+								/>
+							)}
 							<Text style={styles.itemTitle}>{item.itemName}</Text>
 							<TouchableOpacity onPress={() => removeTask(item.id)}>
-								<Text>Trash</Text>
+								<Ionicons name="trash-outline" color="#808080" size={18} />
 							</TouchableOpacity>
 						</TouchableOpacity>
 					)}

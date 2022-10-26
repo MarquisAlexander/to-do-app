@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 8,
 		borderWidth: 1,
 		borderStyle: "solid",
-		borderColor: "#262626",
+		borderColor: "#808080",
 		alignItems: "center",
 	},
 	finishedCardItem: {
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 8,
 		borderWidth: 1,
 		borderStyle: "solid",
-		borderColor: "#808080",
+		borderColor: "#262626",
 		alignItems: "center",
 	},
 	itemTitle: {
@@ -84,5 +84,16 @@ export const styles = StyleSheet.create({
 	},
 	line: {
 		height: 10,
+	},
+	wrapperLenght: {
+		backgroundColor: "#333333",
+		borderRadius: 100,
+		paddingHorizontal: 10,
+		// maxHeight: 100,
+		// width: 10,
+	},
+	lenght: {
+		color: "#D9D9D9",
+		fontWeight: "bold",
 	},
 });
